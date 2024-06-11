@@ -35,7 +35,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
-        mtu: 9000
+        mtu: 1500
         vip:
           ip: "10.10.98.254"
   - hostname: "k8s-main-m02"
@@ -52,7 +52,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
-        mtu: 9000
+        mtu: 1500
         vip:
           ip: "10.10.98.254"
   - hostname: "k8s-main-m03"
@@ -69,7 +69,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
-        mtu: 9000
+        mtu: 1500
         vip:
           ip: "10.10.98.254"
   - hostname: "k8s-main-w01"
@@ -86,7 +86,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
-        mtu: 9000
+        mtu: 1500
   - hostname: "k8s-main-w02"
     ipAddress: "10.10.98.222"
     installDisk: "/dev/sda"
@@ -101,7 +101,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
-        mtu: 9000
+        mtu: 1500
   - hostname: "k8s-main-w03"
     ipAddress: "10.10.98.223"
     installDisk: "/dev/sda"
@@ -116,7 +116,7 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
-        mtu: 9000
+        mtu: 1500
 
 # Global patches
 patches:
