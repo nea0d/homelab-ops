@@ -6,4 +6,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./bitwarden-secrets-manager/ks.yaml
   - ./external-secrets/ks.yaml
+
