@@ -1,0 +1,124 @@
+{
+  "packageRules": [
+    {
+      "description": "Cert-Manager image (for CRDs) and chart",
+      "groupName": "Cert-Manager",
+      "matchPackagePatterns": ["cert-manager"],
+      "matchDatasources": ["docker", "helm"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
+    },
+    {
+      "description": ["Actions Runner Controller Group"],
+      "groupName": "Actions Runner Controller",
+      "matchPackagePatterns": [
+        "gha-runner-scale-set-controller",
+        "gha-runner-scale-set"
+      ],
+      "matchDatasources": ["docker", "helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": ["Dragonfly Operator Group"],
+      "groupName": "Dragonfly Operator",
+      "matchPackagePatterns": ["dragonfly(?:db)?.operator"],
+      "matchDatasources": ["docker", "github-releases"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": ["Flux Group"],
+      "groupName": "Flux",
+      "matchPackagePatterns": ["fluxcd"],
+      "matchDatasources": ["docker", "github-tags"],
+      "versioning": "semver",
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": ["Rook-Ceph Group"],
+      "groupName": "Rook-Ceph",
+      "matchPackagePatterns": ["rook.ceph"],
+      "matchDatasources": ["helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": "External Snapshotter charts",
+      "groupName": "External Snapshotter",
+      "matchPackageNames": ["snapshot-controller", "snapshot-validation-webhook"],
+      "matchDatasources": ["helm"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": "Node Feature Discovery kustomization (for CRDs) and chart",
+      "groupName": "Node Feature Discovery",
+      "matchPackagePatterns": ["node-feature-discovery"],
+      "matchDatasources": ["helm", "github-tags"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": true
+    },
+    {
+      "description": "Thanos image and chart - mismatched versions",
+      "groupName": "Thanos",
+      "matchPackagePatterns": ["thanos"],
+      "matchDatasources": ["docker", "github-releases", "helm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": false
+    },
+    {
+      "description": "Kube-prometheus-stack kustomization (for CRDs) and chart",
+      "groupName": "kube-prometheus-stack",
+      "matchPackageNames": [
+        "kube-prometheus-stack",
+        "kube-prometheus-stack-crds"
+      ],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": false
+    },
+    {
+      "description": "Minio operator and tenant charts",
+      "groupName": "minio",
+      "matchPackageNames": [
+        "operator",
+        "tenant"
+      ],
+      "group": { "commitMessageTopic": "{{{groupName}}} group" },
+      "separateMinorPatch": false
+    },
+    {
+      "description": ["System Upgrade Controller Group"],
+      "groupName": "System Upgrade Controller",
+      "matchPackagePatterns": ["system-upgrade-controller"],
+      "matchDatasources": ["docker", "github-releases"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    },
+    {
+      "description": ["Volsync Group"],
+      "groupName": "Volsync",
+      "matchPackagePatterns": ["volsync"],
+      "matchDatasources": ["docker", "helm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    }
+  ]
+}
