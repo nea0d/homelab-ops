@@ -80,3 +80,106 @@ tasks:
         sh: test -f {{.AGE_FILE}}
       - msg: Missing Github deploy key file
         sh: test -f {{.GITHUB_DEPLOY_KEY_FILE}}
+
+  gr-sync:
+    desc: Sync Flux GitRepositories
+    cmds:
+      - |
+        kubectl get gitrepositories --context {{.cluster}} --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs --max-procs=4 -l bash -c \
+            'kubectl --context {{.cluster}} -n $0 annotate gitrepository/$1 reconcile.fluxcd.io/requestedAt=$(date +%s) --field-manager=flux-client-side-apply --overwrite'
+    requires:
+      vars: ["cluster"]
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
+
+  ks-sync:
+    desc: Sync Flux Kustomizations
+    cmds:
+      - |
+        kubectl get kustomization --context {{.cluster}} --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs --max-procs=4 -l bash -c \
+            'kubectl --context {{.cluster}} -n $0 annotate kustomization/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --field-manager=flux-client-side-apply --overwrite'
+    requires:
+      vars: ["cluster"]
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
+
+  ks-resume:
+    desc: Resume all Flux Kustomizations
+    cmds:
+      - |
+        flux get kustomization --kubeconfig {{.KUBECONFIG_FILE}} --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -l bash -c 'flux -n $0 resume kustomization $1'
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
+
+  hr-sync:
+    desc: Sync Flux HelmReleases
+    cmds:
+      - |
+        kubectl get helmreleases --kubeconfig {{.KUBECONFIG_FILE}} --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs --max-procs=4 -l bash -c \
+            'kubectl --kubeconfig {{.KUBECONFIG_FILE}} -n $0 annotate helmrelease/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --overwrite'
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
+
+  tf-sync:
+    desc: Sync Flux Terraforms
+    cmds:
+      - |
+        kubectl get terraforms --kubeconfig {{.KUBECONFIG_FILE}} --all-namespaces --no-headers | awk '{print $1, $2}' \
+          | xargs --max-procs=4 -l bash -c \
+            'kubectl -n $0 annotate terraform/$1 reconcile.fluxcd.io/requestedAt="$(date +%s)" --kubeconfig {{.KUBECONFIG_FILE}} --overwrite'
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
+
+  hr-suspend:
+    desc: Suspend all Flux HelmReleases
+    cmds:
+      - |
+        flux get helmrelease --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -l bash -c 'flux -n $0 suspend helmrelease $1'
+
+  hr-resume:
+    desc: Resume all Flux HelmReleases
+    cmds:
+      - |
+        flux get helmrelease --all-namespaces --no-header | awk '{print $1, $2}' \
+          | xargs -l bash -c 'flux -n $0 resume helmrelease $1'
+
+  hr-fix:
+    cmds:
+      - kubectl --kubeconfig {{.KUBECONFIG_FILE}} -n {{.namespace}} delete secret -l owner=helm,name={{.release}},status=pending-upgrade
+      - flux -n {{.namespace}} reconcile hr {{.release}}
+    vars:
+      release: '{{ or .release (fail "HelmRelease `release` is required") }}'
+      namespace: '{{.namespace | default "default"}}'
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
+
+
+  toggle-postgres:
+    cmds:
+      - |
+        flux get helmrelease --all-namespaces --no-header --label-selector "app.home.arpa/postgres" \
+            | awk '{print $1, $2, $4}' \
+            | xargs -l bash -c '
+                if [ "$2" == "True" ]; then
+                    flux -n $0 resume helmrelease $1;
+                else
+                    flux -n $0 suspend helmrelease $1;
+                    kubectl get deployment,statefulset --kubeconfig {{.KUBECONFIG_FILE}} --all-namespaces --no-headers --selector "helm.toolkit.fluxcd.io/name=$1" \
+                        | awk '\''{print $1, $2}'\'' \
+                        | xargs -l bash -c '\''kubectl -n $0 scale $1 --replicas 0'\''
+                fi
+              '
+    preconditions:
+      - msg: Missing kubeconfig
+        sh: test -f {{.KUBECONFIG_FILE}}
