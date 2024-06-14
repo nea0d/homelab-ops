@@ -67,10 +67,8 @@ spec:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
-                    - key: ceph-storage-node
-                      operator: In
-                      values:
-                        - "true"
+                    - key: node-role.kubernetes.io/control-plane
+                      operator: DoesNotExist
       removeOSDsIfOutAndSafeToRemove: false
       storage:
         useAllNodes: true
