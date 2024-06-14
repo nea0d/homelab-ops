@@ -1,0 +1,10 @@
+---
+originRequest:
+  originServerName: "external.oxygn.dev"
+
+ingress:
+  - hostname: "oxygn.dev"
+    service: https://ingress-nginx-external-controller.network.svc.cluster.local:443
+  - hostname: "*.oxygn.dev"
+    service: https://ingress-nginx-external-controller.network.svc.cluster.local:443
+  - service: http_status:404
