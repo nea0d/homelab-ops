@@ -1,0 +1,10 @@
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: minio-cluster-job
+spec:
+  metricsPath: /minio/v2/metrics/cluster
+  scheme: HTTP
+  staticConfigs:
+    - targets: ['minio.network:9000']
