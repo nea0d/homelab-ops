@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: cert-manager-issuers
-  path: ./kubernetes/main/apps/network/certificates/app
+  path: ./kubernetes/main/apps/network/certificates
   prune: false
   sourceRef:
     kind: GitRepository
