@@ -24,8 +24,6 @@ spec:
     remediation:
       retries: 3
   dependsOn:
-    - name: gpu-operator
-      namespace: gpu-operator
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
