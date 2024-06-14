@@ -1,0 +1,111 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app cs2
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    timeout: 20m
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    timeout: 20m
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      cs2:
+        containers:
+          app:
+            nameOverride: cs2
+            image:
+              repository: ghcr.io/gameservermanagers/gameserver
+              tag: cs2@sha256:dcaaf4c2c854c37027aeca9b581152cbbd6b5108e0596b6eed648770123f254c
+            env:
+              TZ: "Europe/Paris"
+              CS2__INSTANCE_NAME: CS2
+              CS2__GAMEPORT: &gameport 27015
+              CS2__LOG_LEVEL: info
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *gameport
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *gameport
+                  initialDelaySeconds: 60
+                  periodSeconds: 60
+                  timeoutSeconds: 1
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 25m
+                memory: 512M
+              limits:
+                memory: 2G
+    service:
+      app:
+        controller: cs2
+        type: LoadBalancer
+        annotations:
+          io.cilium/lb-ipam-ips: "10.10.99.180"
+        ports:
+          http:
+            enabled: false
+            port: 80
+          gametcp:
+            enabled: true
+            port: *gameport
+            targetPort: *gameport
+            protocol: TCP
+          gameudp:
+            enabled: true
+            port: *gameport
+            targetPort: *gameport
+            protocol: UDP
+    ingress:
+      app:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
+        hosts:
+          - host: "cs2.oxygn.dev"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: *gameport
+    persistence:
+      data:
+        existingClaim: cs2

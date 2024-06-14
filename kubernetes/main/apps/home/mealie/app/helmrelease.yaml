@@ -1,0 +1,86 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app mealie
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      mealie:
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+              pullPolicy: IfNotPresent
+            envFrom: &envFrom
+              - secretRef:
+                  name: mealie-secret
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v1.8.0
+              pullPolicy: IfNotPresent
+            env:
+              TZ: "Europe/Paris"
+              PUID: 1000
+              PGID: 1000
+              DEFAULT_EMAIL: "postmaster@oxygn.dev"
+              ALLOW_SIGNUP: false
+              API_PORT: 9000
+              AUTO_BACKUP_ENABLED: false
+              BASE_URL: https://mealie.oxygn.dev
+              SMTP_HOST: smtp-relay.kube-system.svc.cluster.local.
+              SMTP_PORT: 25
+              SMTP_FROM_NAME: mealie@oxygn.dev
+              SMTP_AUTH_STRATEGY: none
+              SMTP_FROM_EMAIL: mealie@oxygn.dev
+              TOKEN_TIME: 720
+              # Database Settings
+              DB_ENGINE: postgres
+            envFrom: *envFrom
+            resources:
+              requests:
+                cpu: 10m
+                memory: 256M
+              limits:
+                memory: 512M
+
+    service:
+      app:
+        controller: mealie
+        ports:
+          http:
+            port: 9000
+
+    ingress:
+      mealie:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
+        hosts:
+          - host: "mealie.oxygn.dev"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      api-data:
+        enabled: true
+        existingClaim: mealie
+        globalMounts:
+          - path: /app/data/

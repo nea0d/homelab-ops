@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app teslamate
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      teslamate:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+              pullPolicy: Always
+            envFrom:
+              - secretRef:
+                  name: teslamate-secret
+        containers:
+          app:
+            image:
+              repository: teslamate/teslamate
+              tag: 1.29.1
+            env:
+              TZ: Europe/Paris
+              DISABLE_MQTT: "false"
+              MQTT_HOST: "mosquitto.automation.svc.cluster.local."
+            envFrom:
+              - secretRef:
+                  name: teslamate-secret
+    service:
+      app:
+        controller: teslamate
+        type: ClusterIP
+        ports:
+          http:
+            port: &port 4000
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
+        hosts:
+          - host: "teslamate.oxygn.dev"
+            paths:
+              - path: /
+                service:
+                  name: teslamate
+                  port: *port
+    resources:
+      requests:
+        cpu: 25m
+        memory: 250Mi
+      limits:
+        memory: 500Mi

@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app open-webui
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: open-webui
+      version: 3.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: open-webui
+        namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    ollama:
+      # -- Automatically install Ollama Helm chart from https://otwld.github.io/ollama-helm/. Use [Helm Values](https://github.com/otwld/ollama-helm/#helm-values) to configure
+      enabled: false
+
+    # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
+    ollamaUrls: ["http://ollama.dev.svc.cluster.local.:11434"]
+
+    ingress:
+      enabled: true
+      class: internal
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: "/"
+        external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
+      host: open-webui.oxygn.dev
+
+    persistence:
+      enabled: true
+      existingClaim: "open-webui"
+
