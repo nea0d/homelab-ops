@@ -72,7 +72,7 @@ spec:
         controller: smtp-relay
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "10.10.99.164"
+          io.cilium/lb-ipam-ips: "10.10.98.164"
         ports:
           http:
             primary: true

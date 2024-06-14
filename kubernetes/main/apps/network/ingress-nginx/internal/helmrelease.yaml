@@ -32,7 +32,7 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: internal.oxygn.dev
-          io.cilium/lb-ipam-ips: "10.10.99.151"
+          io.cilium/lb-ipam-ips: "10.10.98.251"
       ingressClassResource:
         name: internal
         default: true
@@ -74,7 +74,7 @@ spec:
           namespaceSelector:
             any: true
       extraArgs:
-        default-ssl-certificate: "cert-manager/oxygn-dev-tls"
+        default-ssl-certificate: "network/oxygn-dev-tls"
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
