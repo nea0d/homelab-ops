@@ -5,7 +5,7 @@ metadata:
   name: postgres-lb
   annotations:
     coredns.io/hostname: "postgres.oxygn.dev"
-    io.cilium/lb-ipam-ip: "10.10.99.160"
+    io.cilium/lb-ipam-ip: "10.10.98.160"
 spec:
   type: LoadBalancer
   ports:

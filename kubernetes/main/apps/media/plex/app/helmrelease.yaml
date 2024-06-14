@@ -42,7 +42,7 @@ spec:
               TZ: "Europe/Paris"
               ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16,192.168.0.0/16,127.0.0.0/8"
               SECURE_CONNECTIONS: "1" #1: Preferred, 0: Required
-              PLEX_ADVERTISE_URL: "http://10.10.99.170:32400,https://plex.oxygn.dev:443"
+              PLEX_ADVERTISE_URL: "http://10.10.98.170:32400,https://plex.oxygn.dev:443"
               PLEX_NO_AUTH_NETWORKS: "10.10.20.0/24"
               # required for HW acceleration
               NVIDIA_VISIBLE_DEVICES: "all"
@@ -84,7 +84,7 @@ spec:
         controller: plex
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "10.10.99.170"
+          io.cilium/lb-ipam-ips: "10.10.98.170"
         ports:
           http:
             port: &port 32400

@@ -54,7 +54,7 @@ spec:
                     divisor: 1Mi
               QBT_Preferences__WebUI__AuthSubnetWhitelistEnabled: true
               QBT_Preferences__WebUI__AuthSubnetWhitelist: |-
-                10.32.0.0/16, 10.10.99.0/24
+                10.97.0.0/16, 10.10.98.0/24
               QBT_Preferences__WebUI__LocalHostAuth: false
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
               QBT_Preferences__WebUI__RootFolder: /add-ons/VueTorrent
@@ -111,7 +111,7 @@ spec:
               # SERVER_HOSTNAMES: "zrh-005.vpn.privado.io,zrh-006.vpn.privado.io,zrh-007.vpn.privado.io,zrh-008.vpn.privado.io"
               FIREWALL_INPUT_PORTS: *port
               FIREWALL_DEBUG: "on"
-              FIREWALL_OUTBOUND_SUBNETS: "10.32.0.0/16,10.10.99.0/24" # Allow access to k8s subnets
+              FIREWALL_OUTBOUND_SUBNETS: "10.97.0.0/16,10.10.98.0/24" # Allow access to k8s subnets
               LOG_LEVEL: "debug"
               DOT: "on"
             envFrom:
@@ -150,7 +150,7 @@ spec:
         controller: qbittorrent
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "10.10.99.172"
+          io.cilium/lb-ipam-ips: "10.10.98.172"
         ports:
           http:
             port: *port

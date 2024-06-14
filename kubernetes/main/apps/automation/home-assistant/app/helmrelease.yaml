@@ -39,8 +39,8 @@ spec:
               tag: 2024.6.2@sha256:921c207d576d053efc789a075f1fecb99d995e73cfaa9d406674ed85f9db721b
             env:
               TZ: Europe/Paris
-              HASS_HTTP_TRUSTED_PROXY_1: 10.10.99.0/24
-              HASS_HTTP_TRUSTED_PROXY_2: 10.32.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_1: 10.10.98.0/24
+              HASS_HTTP_TRUSTED_PROXY_2: 10.97.0.0/16
             envFrom:
               - secretRef:
                   name: home-assistant-secret
@@ -82,7 +82,7 @@ spec:
         controller: home-assistant
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: "10.10.99.171"
+          io.cilium/lb-ipam-ips: "10.10.98.171"
         ports:
           http:
             primary: true
