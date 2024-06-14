@@ -44,12 +44,14 @@ spec:
               repository: ghcr.io/onedr0p/readarr-develop
               tag: 0.3.28.2554@sha256:4beda7d63d2cb014a860bf4f8fa367f9621e378675396b684d300f1e3a0380dc
             env:
+              # https://github.com/Radarr/Radarr/issues/7030#issuecomment-1039689518
+              # https://github.com/dotnet/runtime/issues/9336
+              COMPlus_EnableDiagnostics: "0"
               READARR__INSTANCE_NAME: Readarr
               READARR__PORT: &port 80
               READARR__AUTHENTICATION_METHOD: None
               READARR__AUTHENTICATION_REQUIRED: DisabledForLocalAddresses
               RADARR__ANALYTICS_ENABLED: "False"
-              COMPlus_EnableDiagnostics: "0"
               TZ: "Europe/Paris"
             envFrom: *envFrom
             probes:
