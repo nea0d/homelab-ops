@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-lb
+  annotations:
+    coredns.io/hostname: "postgres.oxygn.dev"
+    io.cilium/lb-ipam-ip: "10.10.99.160"
+spec:
+  type: LoadBalancer
+  ports:
+    - name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    cnpg.io/cluster: postgres
+    role: primary
