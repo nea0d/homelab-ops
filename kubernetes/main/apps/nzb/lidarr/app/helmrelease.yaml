@@ -124,7 +124,7 @@ spec:
       media:
         enabled: true
         type: nfs
-        server: "nas01.oxygn.lan"
+        server: "10.10.10.20"
         path: /volume2/Media
         globalMounts:
           - path: /media
