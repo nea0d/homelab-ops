@@ -27,7 +27,7 @@ spec:
   values:
     nameOverride: gha-runner-scale-set
     runnerScaleSetName: gha-runner-scale-set
-    githubConfigUrl: https://github.com/nea0d/home-ops
+    githubConfigUrl: https://github.com/nea0d/homelab-ops
     githubConfigSecret: &secret actions-runner-controller-auth-secret
     minRunners: 1
     maxRunners: 6
