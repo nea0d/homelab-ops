@@ -65,6 +65,8 @@ tasks:
       - test -f {{.VOLSYNC_TEMPLATES_DIR}}/list.tmpl.yaml
     silent: true
 
+  # To run unlock jobs for all replicationdestinations:
+  #   - kubectl get replicationdestination --all-namespaces --no-headers | awk '{print $2, $1}' | xargs bash -c 'task volsync:unlock app=$0 ns=$1 cluster=main'
   unlock:
     desc: Unlock a Restic repository for an application
     summary: |
