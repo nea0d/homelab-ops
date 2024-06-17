@@ -5,7 +5,7 @@ talosVersion: v1.7.4
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.30.2
 
-clusterName: "home-kubernetes"
+clusterName: "main"
 endpoint: https://10.10.98.254:6443
 clusterPodNets:
   - "10.97.0.0/16"
@@ -77,6 +77,8 @@ nodes:
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
     controlPlane: false
+    nodeLabels:
+      node-role.kubernetes.io/storage-node: "true"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:ab:b8:ef"
@@ -92,6 +94,8 @@ nodes:
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
     controlPlane: false
+    nodeLabels:
+      node-role.kubernetes.io/storage-node: "true"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:87:a2:ff"
@@ -107,6 +111,8 @@ nodes:
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
     controlPlane: false
+    nodeLabels:
+      node-role.kubernetes.io/storage-node: "true"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:d8:19:97"
@@ -117,6 +123,8 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "10.10.98.1"
         mtu: 1500
+    patches:
+      - "@./patches/gpu/nvidia-gpu.yaml"
 
 # Global patches
 patches:
