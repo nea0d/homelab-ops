@@ -5,5 +5,5 @@ kind: Kustomization
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ./scrapeconfigs
-  - ./prometheusrules
+  - ./scrapeconfig.yaml
+  - ./prometheusrule.yaml

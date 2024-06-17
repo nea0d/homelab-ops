@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: pve-exporter
+spec:
+  staticConfigs:
+    - targets:
+      - 10.10.0.50  # Proxmox VE node.
+      - 10.10.0.51  # Proxmox VE node.
+  metricsPath: /pve
+  params:
+    module: ["default"]
+    cluster: ["1"]
+    node: ["1"]
+  relabelings:
+    - sourceLabels: [__address__]
+      targetLabel: __param_target
+    - sourceLabels: [__param_target]
+      targetLabel: instance
+    - targetLabel: __address__
+      replacement: pve-exporter.observability:9221  # PVE exporter.
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: minio
+spec:
+  metricsPath: /minio/v2/metrics/cluster
+  scheme: HTTP
+  staticConfigs:
+    - targets: ['minio.network:9000']
