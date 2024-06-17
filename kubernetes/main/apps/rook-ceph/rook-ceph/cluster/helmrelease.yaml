@@ -63,6 +63,11 @@ spec:
         prometheusEndpointSSLVerify: false
       placement:
         mgr: &placement
+          tolerations:
+            - effect: NoSchedule
+              operator: Exists
+            - effect: NoExecute
+              operator: Exists
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
