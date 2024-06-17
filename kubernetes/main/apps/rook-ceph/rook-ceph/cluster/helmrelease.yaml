@@ -62,20 +62,31 @@ spec:
         prometheusEndpoint: http://thanos-query-frontend.observability.svc.cluster.local.:10902
         prometheusEndpointSSLVerify: false
       placement:
-        all:
+        mgr: &placement
           nodeAffinity:
             requiredDuringSchedulingIgnoredDuringExecution:
               nodeSelectorTerms:
                 - matchExpressions:
                     - key: node-role.kubernetes.io/control-plane
-                      operator: DoesNotExist
+                      operator: Exists
+        mon: *placement
       removeOSDsIfOutAndSafeToRemove: false
       storage:
-        useAllNodes: true
-        useAllDevices: true
-        deviceFilter: nvme0n1
+        useAllNodes: false
+        useAllDevices: false
+        # deviceFilter: nvme0n1
         config:
           osdsPerDevice: "1"
+        nodes:
+          - name: k8s-main-w01
+            devices:
+            - name: "nvme01"
+          - name: k8s-main-w02
+            devices:
+            - name: "nvme01"
+          - name: k8s-main-w03
+            devices:
+            - name: "nvme01"
       resources:
         mgr:
           requests:
