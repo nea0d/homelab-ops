@@ -27,6 +27,7 @@ for app in \
     "kubecolor/kubecolor!!?as=kubecolor&type=script" \
     "kubernetes-sigs/krew!!?as=krew&type=script" \
     "kubernetes-sigs/kustomize!!?as=kustomize&type=script" \
+    "robscott/kube-capacity!!?as=kube-capacity&type=script" \
     "stern/stern!!?as=stern&type=script" \
     "siderolabs/talos!!?as=talosctl&type=script" \
     "yannh/kubeconform!!?as=kubeconform&type=script"
