@@ -29,7 +29,7 @@ spec:
       enabled: false
 
     # -- A list of Ollama API endpoints. These can be added in lieu of automatically installing the Ollama Helm chart, or in addition to it.
-    ollamaUrls: ["http://ollama.dev.svc.cluster.local.:11434"]
+    ollamaUrls: ["http://ollama.ai.svc.cluster.local.:11434"]
 
     ingress:
       enabled: true
