@@ -28,8 +28,8 @@ nodes:
     schematic:
       customization:
         systemExtensions:
-            officialExtensions:
-                - siderolabs/qemu-guest-agent
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -50,8 +50,8 @@ nodes:
     schematic:
       customization:
         systemExtensions:
-            officialExtensions:
-                - siderolabs/qemu-guest-agent
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -72,8 +72,8 @@ nodes:
     schematic:
       customization:
         systemExtensions:
-            officialExtensions:
-                - siderolabs/qemu-guest-agent
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -94,11 +94,9 @@ nodes:
     schematic:
       customization:
         systemExtensions:
-            officialExtensions:
-                - siderolabs/qemu-guest-agent
+          officialExtensions:
+            - siderolabs/qemu-guest-agent
     controlPlane: false
-    nodeLabels:
-      node-role.kubernetes.io/storage-node: "true"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:ab:b8:ef"
@@ -114,8 +112,6 @@ nodes:
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
     controlPlane: false
-    nodeLabels:
-      node-role.kubernetes.io/storage-node: "true"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:87:a2:ff"
@@ -129,17 +125,15 @@ nodes:
   - hostname: "k8s-main-w03"
     ipAddress: "10.10.98.223"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/5600640599fdf863b07242361615accf55aa8e66ff08aa16046d72dfae1db655
+    talosImageURL: factory.talos.dev/installer/1351a99a1f8094938fc1af4c4d9c9ff2f46661fd74e737ddcbfcc12a7d12fc2f
     schematic:
       customization:
         systemExtensions:
-            officialExtensions:
-                - siderolabs/nvidia-container-toolkit
-                - siderolabs/nvidia-open-gpu-kernel-modules
-                - siderolabs/qemu-guest-agent
+          officialExtensions:
+            - siderolabs/nonfree-kmod-nvidia
+            - siderolabs/nvidia-container-toolkit
+            - siderolabs/qemu-guest-agent
     controlPlane: false
-    nodeLabels:
-      node-role.kubernetes.io/storage-node: "true"
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "bc:24:11:d8:19:97"
