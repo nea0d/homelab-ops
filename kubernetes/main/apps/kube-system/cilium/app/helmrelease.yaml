@@ -52,8 +52,10 @@ spec:
         rollOutPods: true
         ingress:
           enabled: true
+          annotations:
+            external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
           className: internal
-          hosts: ["hubble.${SECRET_DOMAIN}"]
+          hosts: ["hubble.oxygn.dev"]
     operator:
       prometheus:
         enabled: true
