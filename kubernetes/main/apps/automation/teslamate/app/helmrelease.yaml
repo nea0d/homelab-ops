@@ -23,6 +23,9 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
+  dependsOn:
+    - name: mosquitto
+      namespace: automation
   values:
     controllers:
       teslamate:
