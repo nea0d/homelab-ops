@@ -4,7 +4,7 @@ bandwidthManager:
   enabled: true
   bbr: true
 bpf:
-  masquerade: false # Required for Talos `.machine.features.hostDNS.forwardKubeDNSToHost`
+  masquerade: true
   tproxy: true
 cgroup:
   automount:
