@@ -220,11 +220,11 @@ spec:
           gnetId: 15038
           revision: 3
           datasource: Prometheus
-        gpu-operator:
-          # renovate: depName="NVIDIA DCGM Exporter Dashboard"
-          gnetId: 12239
-          revision: 2
-          datasource: Prometheus
+        # gpu-operator:
+        #   # renovate: depName="NVIDIA DCGM Exporter Dashboard"
+        #   gnetId: 12239
+        #   revision: 2
+        #   datasource: Prometheus
         minio-cluster:
           # renovate: depName="MinIO Dashboard"
           gnetId: 13502
