@@ -13,7 +13,7 @@ clusterSvcNets:
   - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
   - "10.10.98.254"
-  - 127.0.0.1 # KubePrism
+  - "127.0.0.1" # KubePrism
 additionalMachineCertSans: *sans
 
 # Disable built-in Flannel to use Cilium
@@ -25,6 +25,11 @@ nodes:
     ipAddress: "10.10.98.211"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    schematic:
+      customization:
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/qemu-guest-agent
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -42,6 +47,11 @@ nodes:
     ipAddress: "10.10.98.212"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    schematic:
+      customization:
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/qemu-guest-agent
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -59,6 +69,11 @@ nodes:
     ipAddress: "10.10.98.213"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    schematic:
+      customization:
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/qemu-guest-agent
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -76,6 +91,11 @@ nodes:
     ipAddress: "10.10.98.221"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    schematic:
+      customization:
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/qemu-guest-agent
     controlPlane: false
     nodeLabels:
       node-role.kubernetes.io/storage-node: "true"
@@ -109,7 +129,14 @@ nodes:
   - hostname: "k8s-main-w03"
     ipAddress: "10.10.98.223"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
+    talosImageURL: factory.talos.dev/installer/5600640599fdf863b07242361615accf55aa8e66ff08aa16046d72dfae1db655
+    schematic:
+      customization:
+        systemExtensions:
+            officialExtensions:
+                - siderolabs/nvidia-container-toolkit
+                - siderolabs/nvidia-open-gpu-kernel-modules
+                - siderolabs/qemu-guest-agent
     controlPlane: false
     nodeLabels:
       node-role.kubernetes.io/storage-node: "true"

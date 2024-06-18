@@ -65,15 +65,7 @@ spec:
         all:
           tolerations:
             - effect: NoSchedule
-              operator: Exists
-            - effect: NoExecute
-              operator: Exists
-          nodeAffinity:
-            requiredDuringSchedulingIgnoredDuringExecution:
-              nodeSelectorTerms:
-                - matchExpressions:
-                    - key: node-role.kubernetes.io/control-plane
-                      operator: DoesNotExist
+              key: node-role.kubernetes.io/control-plane
       removeOSDsIfOutAndSafeToRemove: false
       storage:
         useAllNodes: false
