@@ -19,6 +19,7 @@ resources:
   - ./k8s-gateway.yaml
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
+  - ./nvidia-device-plugin.yaml
   - ./ollama.yaml
   - ./open-webui.yaml
   - ./openebs.yaml
