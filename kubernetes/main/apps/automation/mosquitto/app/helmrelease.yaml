@@ -69,14 +69,27 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
     service:
-      app:
+      mosquitto:
         controller: mosquitto
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 10.10.98.163
         ports:
           http:
-            port: 1883
+            port: &port 1883
+    ingress:
+      app:
+        enabled: true
+        className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
+        hosts:
+          - host: "mosquitto.oxygn.dev"
+            paths:
+              - path: /
+                service:
+                  name: mosquitto
+                  port: *port
     persistence:
       config:
         existingClaim: mosquitto
