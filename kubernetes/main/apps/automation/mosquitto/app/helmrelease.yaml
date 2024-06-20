@@ -77,19 +77,6 @@ spec:
         ports:
           http:
             port: &port 1883
-    ingress:
-      app:
-        enabled: true
-        className: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
-        hosts:
-          - host: "mosquitto.oxygn.dev"
-            paths:
-              - path: /
-                service:
-                  name: mosquitto
-                  port: *port
     persistence:
       config:
         existingClaim: mosquitto
