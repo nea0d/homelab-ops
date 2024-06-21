@@ -47,6 +47,9 @@ spec:
                 sabnzbd.nzb.svc.cluster,
                 sabnzbd.nzb.svc.cluster.local,
                 sabnzbd.oxygn.dev
+            envFrom:
+              - secretRef:
+                  name: sabnzbd-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -72,14 +75,15 @@ spec:
                 memory: 512M
               limits:
                 memory: 2Gi
-        pod:
-          securityContext:
-            runAsUser: 568
-            runAsGroup: 568
-            runAsNonRoot: true
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        runAsNonRoot: true
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups: [10000]
+        seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: sabnzbd
@@ -109,6 +113,10 @@ spec:
     persistence:
       config:
         existingClaim: sabnzbd
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
       tmp:
         type: emptyDir
       media:
