@@ -76,6 +76,13 @@ spec:
     persistence:
       config:
         existingClaim: *app
+      app:
+        type: secret
+        name: komga-secrets
+        defaultMode: 0400
+        globalMounts:
+          - subPath: application.yml
+            path: /config/application.yml
       media:
         type: nfs
         server: "10.10.10.20"
