@@ -40,6 +40,8 @@ spec:
             env:
               TZ: Europe/Paris
               SERVER_PORT: &port 80
+              KOMGA_CONFIGDIR: /config
+              LOGGING_FILE_NAME: /dev/stdout
             resources:
               requests:
                 cpu: 15m
@@ -78,7 +80,7 @@ spec:
         existingClaim: *app
       app:
         type: secret
-        name: komga-secrets
+        name: komga-secret
         defaultMode: 0400
         globalMounts:
           - subPath: application.yml
