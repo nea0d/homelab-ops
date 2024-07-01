@@ -1,11 +1,26 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
-  "name": "Flux Cluster Template",
-  "image": "ghcr.io/onedr0p/cluster-template/devcontainer:base",
-  "postCreateCommand": {
-    "setup": "bash ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
+  "name": "Flux Cluster Template (CI)",
+  "build": {
+    "dockerfile": "./Dockerfile",
+    "context": "."
   },
-  "postStartCommand": {
-    "git": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+  "features": {
+    "./features": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/usr/bin/fish"
+          }
+        },
+        "terminal.integrated.defaultProfile.linux": "fish"
+      },
+      "extensions": [
+        "redhat.vscode-yaml"
+      ]
+    }
   }
 }
