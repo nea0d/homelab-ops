@@ -30,7 +30,7 @@ spec:
       webhook:
         image:
           repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: main@sha256:8eb94db2064d34d0c3ef3c758c16af557d9fcada141e372bc8934e6445315116
+          tag: main@sha256:522d7a406a4e58e462b390643a3973d03e3f6e113c21ae514d3d3d029d82e76a
         env:
           - name: UNIFI_HOST
             value: https://10.10.0.1
