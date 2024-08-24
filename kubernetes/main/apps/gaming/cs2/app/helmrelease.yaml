@@ -38,7 +38,7 @@ spec:
             nameOverride: cs2
             image:
               repository: ghcr.io/gameservermanagers/gameserver
-              tag: cs2@sha256:c824a9cfa4424a13a601a11473808be68a1af5ec6204a5ade3fae94e4e807eda
+              tag: cs2@sha256:42fe714cb484564deb36f58575dda50b543fb0a45932e67215845b7f3edaaa24
             env:
               TZ: "Europe/Paris"
               CS2__INSTANCE_NAME: CS2
