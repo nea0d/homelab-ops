@@ -59,23 +59,15 @@ spec:
               QBT_Preferences__WebUI__AlternativeUIEnabled: true
               QBT_Preferences__WebUI__RootFolder: /add-ons/VueTorrent
             probes:
-              liveness: &probes
+              liveness:
                 enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /api/v2/app/version
-                    port: *port
-                  initialDelaySeconds: 30
-                  periodSeconds: 30
-                  timeoutSeconds: 10
-                  failureThreshold: 6
-              readiness: *probes
+              readiness:
+                enabled: true
               startup:
                 enabled: true
                 spec:
                   failureThreshold: 30
-                  periodSeconds: 10
+                  periodSeconds: 5
             resources:
               requests:
                 cpu: 49m
@@ -109,6 +101,11 @@ spec:
               limits:
                 memory: 50Mi
 
+          dnsdist:
+            image:
+              repository: docker.io/powerdns/dnsdist-19
+              tag: 1.9.6
+
           gluetun:
             image:
               repository: ghcr.io/qdm12/gluetun
@@ -121,10 +118,13 @@ spec:
               FIREWALL_DEBUG: "on"
               FIREWALL_OUTBOUND_SUBNETS: "10.97.0.0/16,10.10.98.0/24" # Allow access to k8s subnets
               LOG_LEVEL: "debug"
-              DOT: "on"
+              DOT: "off"
             envFrom:
               - secretRef:
                   name: qbittorrent-vpn-secret
+            resources:
+              limits:
+                squat.ai/tun: "1"
             securityContext:
               capabilities:
                 add:
@@ -206,6 +206,15 @@ spec:
           qbittorrent:
             port-forward:
               - path: /config
+      dnsdist:
+        type: configMap
+        name: qbittorrent-dnsdist
+        advancedMounts:
+          qbittorrent:
+            dnsdist:
+              - path: /etc/dnsdist/dnsdist.conf
+                subPath: dnsdist.conf
+                readOnly: true
       media:
         type: nfs
         server: "10.10.10.20"
