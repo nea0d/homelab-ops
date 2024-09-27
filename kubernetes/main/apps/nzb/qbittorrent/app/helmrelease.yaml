@@ -126,7 +126,8 @@ spec:
               capabilities:
                 add:
                   - NET_ADMIN
-                  - MKNOD
+                  # - NET_RAW
+                  # - MKNOD
               allowPrivilegeEscalation: false
 
           port-forward:
