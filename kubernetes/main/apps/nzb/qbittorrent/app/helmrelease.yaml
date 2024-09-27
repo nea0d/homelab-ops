@@ -101,10 +101,10 @@ spec:
               limits:
                 memory: 50Mi
 
-          dnsdist:
-            image:
-              repository: docker.io/powerdns/dnsdist-19
-              tag: 1.9.6
+          # dnsdist:
+          #   image:
+          #     repository: docker.io/powerdns/dnsdist-19
+          #     tag: 1.9.6
 
           gluetun:
             image:
@@ -118,17 +118,15 @@ spec:
               FIREWALL_DEBUG: "on"
               FIREWALL_OUTBOUND_SUBNETS: "10.97.0.0/16,10.10.98.0/24" # Allow access to k8s subnets
               LOG_LEVEL: "debug"
-              DOT: "off"
+              DOT: "on"
             envFrom:
               - secretRef:
                   name: qbittorrent-vpn-secret
-            resources:
-              limits:
-                squat.ai/tun: "1"
             securityContext:
               capabilities:
                 add:
                   - NET_ADMIN
+                  - MKNOD
               allowPrivilegeEscalation: false
 
           port-forward:
