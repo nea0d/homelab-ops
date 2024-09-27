@@ -3,7 +3,7 @@
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: talos
+  name: talos-main
 spec:
   version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
@@ -21,12 +21,9 @@ spec:
       - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
         operator: NotIn
         values: ["${TALOS_VERSION}"]
-      - key: factory.talos.dev/schematic-id.part-0
-        operator: In
-        values: ["${TALOS_SCHEMATIC_ID:0:32}"]
-      - key: factory.talos.dev/schematic-id.part-1
-        operator: In
-        values: ["${TALOS_SCHEMATIC_ID:32}"]
+      - key: nvidia.com/gpu.present
+        operator: NotIn
+        values: ["true"]
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
@@ -49,6 +46,6 @@ spec:
     args:
       - --nodes=$(NODE_IP)
       - upgrade
-      - --image=factory.talos.dev/installer/${TALOS_SCHEMATIC_ID}:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --image=factory.talos.dev/installer/ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
