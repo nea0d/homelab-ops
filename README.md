@@ -9,9 +9,19 @@
 </h1>
 
 <div align="center">
-  <a href="https://github.com/k8s-at-home" alt="Image used with permission from k8s-at-home">
-    <img alt="Image used with permission from k8s-at-home" src="https://avatars.githubusercontent.com/u/61287648" />
-  </a>
+
+### My Home Operations Repository :octocat:
+
+_... managed with Flux, Renovate, and GitHub Actions_ 🤖
+
+</div>
+
+<div align="center">
+
+[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&color=blue&label=%20)](https://talos.dev)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&color=blue&label=%20)](https://kubernetes.io)&nbsp;&nbsp;
+[![Renovate](https://img.shields.io/github/actions/workflow/status/nea0d/homelab-ops/renovate.yaml?branch=main&label=&logo=renovatebot&style=for-the-badge&color=blue)](https://github.com/onedr0p/home-ops/actions/workflows/renovate.yaml)
+
 </div>
 
 <div align="center">
@@ -21,8 +31,7 @@
 [![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_node_count&style=flat-square&label=Nodes)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_pod_count&style=flat-square&label=Pods)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Power-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_power_usage&style=flat-square&label=Power)](https://github.com/kashalls/kromgo)
+[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo)
 
 </div>
 
