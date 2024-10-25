@@ -153,14 +153,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/teslamate-folder
-          - name: thanos
-            orgId: 1
-            folder: Thanos
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/thanos-folder
           - name: unifi
             orgId: 1
             folder: Unifi
