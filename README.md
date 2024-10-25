@@ -8,23 +8,23 @@
   </a> homelab-ops
 </h1>
 
-<p align="center">
+<div align="center">
   <a href="https://github.com/k8s-at-home" alt="Image used with permission from k8s-at-home">
     <img alt="Image used with permission from k8s-at-home" src="https://avatars.githubusercontent.com/u/61287648" />
   </a>
-</p>
+</div>
 
-<p align="center">
-  <a href="https://k3s.io/"><img alt="k3s" src="https://img.shields.io/badge/k3s-v1.30.0-orange?logo=kubernetes&logoColor=white&style=flat-square"></a>&nbsp;
-  <a href="https://github.com/nea0d/homelab-ops/stargazers"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/nea0d/homelab-ops?logo=github&color=green&logoColor=white&style=flat-square"></a>&nbsp;
-  <a href="https://github.com/nea0d/homelab-ops/commits/main"><img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/nea0d/homelab-ops?logo=git&logoColor=white&color=purple&style=flat-square"></a>&nbsp;
-  <a href="https://github.com/nea0d/homelab-ops/commits/main"><img alt="GitHub tag checks state" src="https://img.shields.io/github/checks-status/nea0d/homelab-ops/main"></a>&nbsp;
-  <a href="https://discord.gg/home-operations"><img alt="K8s-at-home Discord" src="https://img.shields.io/badge/discord-chat-7289DA.svg?logo=discord&logoColor=white&maxAge=60&style=flat-square"></a>
-</p>
+<div align="center">
 
-<p align="center">
-Using GitOps principals and workflow to manage a lightweight <a href="https://talos.dev">Talos</a> cluster.
-</p>
+[![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_age_days&style=flat-square&label=Age)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_uptime_days&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_node_count&style=flat-square&label=Nodes)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_pod_count&style=flat-square&label=Pods)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![Power-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.oxygn.dev%2Fcluster_power_usage&style=flat-square&label=Power)](https://github.com/kashalls/kromgo)
+
+</div>
 
 ---
 
