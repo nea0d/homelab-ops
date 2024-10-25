@@ -179,32 +179,24 @@ spec:
         datasources:
           - name: Prometheus
             type: prometheus
-            url: http://thanos-query-frontend.observability.svc.cluster.local.:10902
-            uid: "prometheus"
+            uid: prometheus
             access: proxy
-            isDefault: true
-            editable: true
+            url: http://prometheus-operated.observability.svc.cluster.local:9090
             jsonData:
-              prometheusType: Thanos
-              alertmanagerUid: "alertmanager"
-              manageAlerts: true
-              httpMethod": "POST"
-          # - name: Loki
-          #   type: loki
-          #   access: proxy
-          #   url: http://loki-gateway.observability.svc.cluster.local.:80
-          #   uid: "loki"
-          #   editable: true
-          #   jsonData:
-          #     alertmanagerUid: "alertmanager"
-          #     manageAlerts: true
-          #     maxLines: 250
+              timeInterval: 1m
+            isDefault: true
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki-headless.observability.svc.cluster.local:3100
+            jsonData:
+              maxLines: 250
           - name: Alertmanager
             type: alertmanager
+            uid: alertmanager
             access: proxy
-            uid: "alertmanager"
-            url: http://alertmanager-operated.observability.svc.cluster.local.:9093
-            editable: true
+            url: http://alertmanager-operated.observability.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
     dashboards:
@@ -431,34 +423,6 @@ spec:
         teslamate-custom-tracking-drives:
           url: https://raw.githubusercontent.com/jheredianet/Teslamate-CustomGrafanaDashboards/main/dashboards/TrackingDrives.json
           datasource: TeslaMate
-      thanos:
-        thanos-bucket-replicate:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
-          datasource: Prometheus
-        thanos-compact:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/compact.json
-          datasource: Prometheus
-        thanos-overview:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/overview.json
-          datasource: Prometheus
-        thanos-query:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query.json
-          datasource: Prometheus
-        thanos-query-frontend:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query-frontend.json
-          datasource: Prometheus
-        thanos-receieve:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/receive.json
-          datasource: Prometheus
-        thanos-rule:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/rule.json
-          datasource: Prometheus
-        thanos-sidecar:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/sidecar.json
-          datasource: Prometheus
-        thanos-store:
-          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
-          datasource: Prometheus
       unifi:
         unifi-client-dpi:
           # renovate: depName="UniFi-Poller: Client DPI - Prometheus"

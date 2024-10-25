@@ -4,12 +4,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./helmrelease.yaml
-  - ./externalsecret.yaml
-  # Templates
-  - ../../../../templates/gatus/guarded
+  - ../../../../templates/gatus/external
 configMapGenerator:
-  - name: thanos-cache-configmap
+  - name: kromgo-configmap
     files:
-      - cache.yaml=./resources/cache.yaml
+      - config.yaml=./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true
