@@ -6,7 +6,7 @@ metadata:
   name: postgres
 spec:
   instances: 3
-  imageName: ghcr.io/cloudnative-pg/postgresql:16.4-46
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.0-23
   primaryUpdateStrategy: unsupervised
   storage:
     size: 15Gi
@@ -16,8 +16,8 @@ spec:
   enableSuperuserAccess: true
   postgresql:
     parameters:
-      max_connections: "400"
-      shared_buffers: 256MB
+      max_connections: "300"
+      shared_buffers: 512MB
   nodeMaintenanceWindow:
     inProgress: false
     reusePVC: true
@@ -45,7 +45,7 @@ spec:
       endpointURL: https://d1403fac4607ccda8f0f9d8153b6c03f.eu.r2.cloudflarestorage.com
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster
-      serverName: &currentCluster postgres-v9
+      serverName: &currentCluster postgres-v10
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -57,7 +57,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres-v8
+      source: &previousCluster postgres-v9
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
