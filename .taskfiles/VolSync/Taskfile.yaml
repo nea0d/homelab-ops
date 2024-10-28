@@ -46,7 +46,7 @@ tasks:
     summary: |
       Args:
         cluster: Cluster to run command against (required)
-        ns: Namespace the PVC is in (default: default)
+        ns: Namespace the PVC is in (required)
         app: Application to list snapshots for (required)
     cmds:
       - envsubst < <(cat {{.VOLSYNC_TEMPLATES_DIR}}/list.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
@@ -56,9 +56,8 @@ tasks:
       - kubectl --context {{.cluster}} -n {{.ns}} delete job {{.job}}
     env: *env-vars
     requires:
-      vars: ["cluster", "app"]
+      vars: ["cluster", "app", "ns"]
     vars:
-      ns: '{{.ns | default "default"}}'
       job: volsync-list-{{.app}}
     preconditions:
       - test -f {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh
@@ -72,7 +71,7 @@ tasks:
     summary: |
       Args:
         cluster: Cluster to run command against (required)
-        ns: Namespace the PVC is in (default: default)
+        ns: Namespace the PVC is in (required)
         app: Application to unlock (required)
     cmds:
       - envsubst < <(cat {{.VOLSYNC_TEMPLATES_DIR}}/unlock.tmpl.yaml) | kubectl --context {{.cluster}} apply -f -
@@ -83,9 +82,8 @@ tasks:
       - kubectl --context {{.cluster}} -n {{.ns}} delete job {{.job}}
     env: *env-vars
     requires:
-      vars: ["cluster", "app"]
+      vars: ["cluster", "app", "ns"]
     vars:
-      ns: '{{.ns | default "default"}}'
       job: volsync-unlock-{{.app}}
     preconditions:
       - test -f {{.VOLSYNC_SCRIPTS_DIR}}/wait-for-job.sh
@@ -99,7 +97,7 @@ tasks:
     summary: |
       Args:
         cluster: Cluster to run command against (required)
-        ns: Namespace the PVC is in (default: default)
+        ns: Namespace the PVC is in (required)
         app: Application to snapshot (required)
     cmds:
       - kubectl --context {{.cluster}} -n {{.ns}} patch replicationsources {{.app}} --type merge -p '{"spec":{"trigger":{"manual":"{{.now}}"}}}'
@@ -107,10 +105,9 @@ tasks:
       - kubectl --context {{.cluster}} -n {{.ns}} wait job/{{.job}} --for condition=complete --timeout=120m
     env: *env-vars
     requires:
-      vars: ["cluster", "app"]
+      vars: ["cluster", "app", "ns"]
     vars:
       now: '{{now | date "150405"}}'
-      ns: '{{.ns | default "default"}}'
       job: volsync-src-{{.app}}
       controller:
         sh: true && {{.VOLSYNC_SCRIPTS_DIR}}/which-controller.sh {{.app}} {{.ns}} {{.cluster}}
@@ -126,7 +123,7 @@ tasks:
     summary: |
       Args:
         cluster: Cluster to run command against (required)
-        ns: Namespace the PVC is in (default: default)
+        ns: Namespace the PVC is in (required)
         app: Application to restore (required)
         previous: Previous number of snapshots to restore (default: 2)
     cmds:
@@ -136,9 +133,8 @@ tasks:
       - { task: .resume, vars: *env-vars }
     env: *env-vars
     requires:
-      vars: ["cluster", "app"]
+      vars: ["cluster", "app", "ns"]
     vars:
-      ns: '{{.ns | default "default"}}'
       previous: '{{.previous | default 2}}'
       controller:
         sh: "{{.VOLSYNC_SCRIPTS_DIR}}/which-controller.sh {{.app}} {{.ns}}"
