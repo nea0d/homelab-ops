@@ -4,7 +4,17 @@
     {
       "matchDatasources": ["docker"],
       "matchPackagePatterns": ["postgresql"],
-      "allowedVersions": "<18"
+      "allowedVersions": "<17"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["teslamate"],
+      "allowedVersions": "<1.31"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["qbittorrent"],
+      "allowedVersions": "<5"
     }
   ]
 }
