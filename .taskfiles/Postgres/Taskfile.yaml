@@ -1,0 +1,324 @@
+---
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  maintenance-main:
+    desc: Set/unset maintenance mode on main cluster
+    summary: |
+      Args:
+        command: 'set' or 'unset' (required)
+    cmds:
+      - kubectl cnpg --context main maintenance {{.command}} --reusePVC -n databases postgres
+    requires:
+      vars:
+        - command
+
+  down_all:
+    desc: Turn down all applications using Postgres
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: automation
+          HELMRELEASE: teslamate
+          KUSTOMIZATION: teslamate
+          SERVICES: deployment/teslamate
+      - task: _down
+        vars:
+          NAMESPACE: dev
+          HELMRELEASE: atuin
+          KUSTOMIZATION: atuin
+          SERVICES: deployment/atuin
+      - task: _down
+        vars:
+          NAMESPACE: dev
+          HELMRELEASE: coder
+          KUSTOMIZATION: coder
+          SERVICES: deployment/coder
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: lidarr
+          KUSTOMIZATION: lidarr
+          SERVICES: deployment/lidarr
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: prowlarr
+          KUSTOMIZATION: prowlarr
+          SERVICES: deployment/prowlarr
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: readarr
+          KUSTOMIZATION: readarr
+          SERVICES: deployment/readarr
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: radarr
+          KUSTOMIZATION: radarr
+          SERVICES: deployment/radarr
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: sonarr
+          KUSTOMIZATION: sonarr
+          SERVICES: deployment/sonarr
+      - task: _down
+        vars:
+          NAMESPACE: observability
+          HELMRELEASE: gatus
+          KUSTOMIZATION: gatus
+          SERVICES: deployment/gatus
+      - task: _down
+        vars:
+          NAMESPACE: observability
+          HELMRELEASE: grafana
+          KUSTOMIZATION: grafana
+          SERVICES: deployment/grafana
+      - task: _down
+        vars:
+          NAMESPACE: security
+          HELMRELEASE: authelia
+          KUSTOMIZATION: authelia
+          SERVICES: deployment/authelia
+      - task: _down
+        vars:
+          NAMESPACE: security
+          HELMRELEASE: lldap
+          KUSTOMIZATION: lldap
+          SERVICES: deployment/lldap
+
+  up_all:
+    desc: Turn down all applications using Postgres
+    cmds:
+      - task: _up
+        vars:
+          NAMESPACE: automation
+          HELMRELEASE: teslamate
+          KUSTOMIZATION: teslamate
+          SERVICES: deployment/teslamate
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: dev
+          HELMRELEASE: atuin
+          KUSTOMIZATION: atuin
+          SERVICES: deployment/atuin
+          REPLICAS: 2
+      - task: _up
+        vars:
+          NAMESPACE: dev
+          HELMRELEASE: coder
+          KUSTOMIZATION: coder
+          SERVICES: deployment/coder
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: lidarr
+          KUSTOMIZATION: lidarr
+          SERVICES: deployment/lidarr
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: prowlarr
+          KUSTOMIZATION: prowlarr
+          SERVICES: deployment/prowlarr
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: readarr
+          KUSTOMIZATION: readarr
+          SERVICES: deployment/readarr
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: radarr
+          KUSTOMIZATION: radarr
+          SERVICES: deployment/radarr
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: sonarr
+          KUSTOMIZATION: sonarr
+          SERVICES: deployment/sonarr
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: observability
+          HELMRELEASE: gatus
+          KUSTOMIZATION: gatus
+          SERVICES: deployment/gatus
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: observability
+          HELMRELEASE: grafana
+          KUSTOMIZATION: grafana
+          SERVICES: deployment/grafana
+          REPLICAS: 1
+      - task: _up
+        vars:
+          NAMESPACE: security
+          HELMRELEASE: authelia
+          KUSTOMIZATION: authelia
+          SERVICES: deployment/authelia
+          REPLICAS: 2
+      - task: _up
+        vars:
+          NAMESPACE: security
+          HELMRELEASE: lldap
+          KUSTOMIZATION: lldap
+          SERVICES: deployment/lldap
+          REPLICAS: 2
+
+  restore_lidarr:
+    desc: Restore lidarr database
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: lidarr
+          KUSTOMIZATION: lidarr
+          SERVICES: deployment/lidarr
+      - task: _restore_db
+        vars:
+          DATABASE: lidarr_main
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: lidarr
+          KUSTOMIZATION: lidarr
+          SERVICES: deployment/lidarr
+          REPLICAS: 1
+
+  restore_prowlarr:
+    desc: Restore prowlarr database
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: prowlarr
+          KUSTOMIZATION: prowlarr
+          SERVICES: deployment/prowlarr
+      - task: _restore_db
+        vars:
+          DATABASE: prowlarr_main
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: prowlarr
+          KUSTOMIZATION: prowlarr
+          SERVICES: deployment/prowlarr
+          REPLICAS: 1
+
+  restore_readarr:
+    desc: Restore readarr database
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: readarr
+          KUSTOMIZATION: readarr
+          SERVICES: deployment/readarr
+      - task: _restore_db
+        vars:
+          DATABASE: readarr_main
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: readarr
+          KUSTOMIZATION: readarr
+          SERVICES: deployment/readarr
+          REPLICAS: 1
+
+  restore_radarr:
+    desc: Restore radarr database
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: radarr
+          KUSTOMIZATION: radarr
+          SERVICES: deployment/radarr
+      - task: _restore_db
+        vars:
+          DATABASE: radarr_main
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: radarr
+          KUSTOMIZATION: readarr
+          SERVICES: deployment/radarr
+          REPLICAS: 1
+
+  restore_sonarr:
+    desc: Restore sonarr database
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: sonarr
+          KUSTOMIZATION: sonarr
+          SERVICES: deployment/sonarr
+      - task: _restore_db
+        vars:
+          DATABASE: sonarr_main
+      - task: _up
+        vars:
+          NAMESPACE: nzb
+          HELMRELEASE: sonarr
+          KUSTOMIZATION: sonarr
+          SERVICES: deployment/sonarr
+          REPLICAS: 1
+
+  restore_teslamate:
+    desc: Restore teslamate database
+    cmds:
+      - task: _down
+        vars:
+          NAMESPACE: automation
+          HELMRELEASE: teslamate
+          KUSTOMIZATION: teslamate
+          SERVICES: deployment/teslamate
+      - task: _restore_db
+        vars:
+          DATABASE: teslamate
+      - task: _up
+        vars:
+          NAMESPACE: automation
+          HELMRELEASE: teslamate
+          KUSTOMIZATION: teslamate
+          SERVICES: deployment/teslamate
+          REPLICAS: 1
+
+  _down:
+    desc: Bring a service down
+    cmds:
+      - flux suspend helmrelease -n {{.NAMESPACE}} {{.HELMRELEASE}}
+      - flux suspend kustomization {{.KUSTOMIZATION}}
+      - for: {var: SERVICES}
+        cmd: kubectl scale --replicas=0 -n {{.NAMESPACE}} {{.ITEM}}
+
+  _up:
+    desc: Bring a service up
+    cmds:
+      - for: {var: SERVICES}
+        cmd: kubectl scale --replicas={{.REPLICAS}} -n {{.NAMESPACE}} {{.ITEM}}
+      - flux resume helmrelease -n {{.NAMESPACE}} {{.HELMRELEASE}}
+      - flux resume kustomization {{.KUSTOMIZATION}}
+
+  _restore_db:
+    prompt: Ready to restore database {{.DATABASE}}?
+    desc: Restore a database
+    cmds:
+      - cp {{.DBBACKUP}}/last/{{.DATABASE}}-latest.sql.gz /tmp
+      - gzip -d /tmp/{{.DATABASE}}-latest.sql.gz
+      - psql < /tmp/{{.DATABASE}}-latest.sql
+      - rm /tmp/{{.DATABASE}}-latest.sql
