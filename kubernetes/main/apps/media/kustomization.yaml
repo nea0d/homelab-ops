@@ -6,6 +6,8 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
+  - ./audiobookshelf/ks.yaml
+  - ./calibre-web/ks.yaml
   - ./komga/ks.yaml
   - ./overseerr/ks.yaml
   - ./plex/ks.yaml
