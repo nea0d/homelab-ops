@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/media/audiobookshelf/app
+  path: ./kubernetes/main/apps/media/audiobookshelf/app
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
