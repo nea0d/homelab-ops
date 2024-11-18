@@ -88,7 +88,6 @@ spec:
         path: "/volume2/Media/Books"
         globalMounts:
           - path: /data/media
-            readOnly: true
 
       cache:
         type: emptyDir

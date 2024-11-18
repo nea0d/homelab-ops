@@ -103,4 +103,3 @@ spec:
         path: "/volume2/Media/AudioBooks"
         globalMounts:
           - path: /media
-            readOnly: true
