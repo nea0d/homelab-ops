@@ -6,4 +6,4 @@ resources:
   - ./helmrelease.yaml
   # Templates
   - ../../../../templates/volsync/full
-  - ../../../../templates/gatus/internal
+  - ../../../../templates/gatus/guarded
