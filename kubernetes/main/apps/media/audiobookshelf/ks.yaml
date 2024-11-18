@@ -22,5 +22,5 @@ spec:
   postBuild:
     substitute:
       APP: *app
-      CAPACITY: 500Mi
+      VOLSYNC_CAPACITY: 1Gi
       GATUS_PATH: /ping
