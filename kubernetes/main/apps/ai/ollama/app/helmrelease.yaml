@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: ollama
-      version: 0.69.0
+      version: 1.0.0
       sourceRef:
         kind: HelmRepository
         name: ollama
@@ -34,9 +34,10 @@ spec:
         number: 1
       # -- List of models to pull at container startup
       models:
-        - codellama
-        - mistral
-        - llama3
+        pull:
+          - codellama
+          - mistral
+          - llama3
 
     extraEnv:
       - name: OLLAMA_DEBUG
