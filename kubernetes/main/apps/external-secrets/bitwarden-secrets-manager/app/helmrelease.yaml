@@ -32,7 +32,7 @@ spec:
           app:
             image:
               repository: ghcr.io/ripplefcl/bws-cache
-              tag: v1.1.0@sha256:bcee868971c14cf9180249059c386706b8ab2ad3f3749762006aa261f6490744
+              tag: v2.1.0@sha256:ec340ee9e306cbce204a50cdd3b86ffe4edbdc95aeaac0ed8f1e3579d9ae2ff4
             env:
               SECRET_TTL: 3600
               DEBUG: "false"
