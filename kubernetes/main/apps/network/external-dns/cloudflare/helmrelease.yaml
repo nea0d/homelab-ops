@@ -39,12 +39,12 @@ spec:
       - --cloudflare-proxied
       - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --crd-source-kind=DNSEndpoint
-      - --events
       - --ignore-ingress-tls-spec
       - --ingress-class=external
+    triggerLoopOnEvent: true
     policy: sync
     sources: ["crd", "ingress"]
-    txtOwnerId: homelab
+    txtOwnerId: default
     txtPrefix: k8s.
     domainFilters: ["oxygn.dev"]
     serviceMonitor:
