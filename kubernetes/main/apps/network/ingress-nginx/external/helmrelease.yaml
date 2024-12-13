@@ -31,7 +31,7 @@ spec:
           value: "Europe/Paris"
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: external.oxygn.dev
+          external-dns.alpha.kubernetes.io/hostname: &hostname external.oxygn.dev
           io.cilium/lb-ipam-ips: "10.10.98.250"
       ingressClassResource:
         name: external
@@ -75,6 +75,7 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: "network/oxygn-dev-tls"
+        publish-status-address: *hostname
       terminationGracePeriodSeconds: 120
       topologySpreadConstraints:
         - maxSkew: 1

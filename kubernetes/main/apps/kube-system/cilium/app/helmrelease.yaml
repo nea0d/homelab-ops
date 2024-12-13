@@ -52,8 +52,6 @@ spec:
         rollOutPods: true
         ingress:
           enabled: true
-          annotations:
-            external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
           className: internal
           hosts: ["hubble.oxygn.dev"]
     operator:

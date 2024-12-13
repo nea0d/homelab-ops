@@ -38,8 +38,6 @@ spec:
       ingress:
         enabled: true
         ingressClassName: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
         hosts:
           - "alertmanager.oxygn.dev"
       alertmanagerSpec:
@@ -71,8 +69,6 @@ spec:
     prometheus:
       ingress:
         enabled: true
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
         ingressClassName: internal
         hosts: ["prometheus.oxygn.dev"]
         pathType: Prefix

@@ -46,8 +46,6 @@ spec:
     ingress:
       enabled: true
       className: internal
-      annotations:
-        external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
       hosts:
         - host: ollama.oxygn.dev
           paths:

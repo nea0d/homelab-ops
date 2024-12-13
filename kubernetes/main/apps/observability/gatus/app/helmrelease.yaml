@@ -119,7 +119,6 @@ spec:
           gethomepage.dev/description: Status Page
           gethomepage.dev/widget.type: gatus
           gethomepage.dev/widget.url: http://gatus.observability
-          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
         hosts:
           - host: status.oxygn.dev
             paths:

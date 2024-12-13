@@ -37,8 +37,6 @@ metadata:
   labels:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
-  annotations:
-    external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
 spec:
   ingressClassName: internal
   rules:

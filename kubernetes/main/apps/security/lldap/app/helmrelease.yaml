@@ -86,8 +86,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
         hosts:
           - host: "lldap.oxygn.dev"
             paths:
