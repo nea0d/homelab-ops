@@ -77,6 +77,8 @@ spec:
         default-ssl-certificate: "network/oxygn-dev-tls"
         publish-status-address: *hostname
       terminationGracePeriodSeconds: 120
+      publishService:
+        enabled: false
       resources:
         requests:
           cpu: 100m
