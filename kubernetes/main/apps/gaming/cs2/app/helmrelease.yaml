@@ -96,8 +96,6 @@ spec:
       app:
         enabled: true
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
         hosts:
           - host: "cs2.oxygn.dev"
             paths:

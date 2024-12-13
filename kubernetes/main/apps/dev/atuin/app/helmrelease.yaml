@@ -107,8 +107,6 @@ spec:
             scrapeTimeout: 10s
     ingress:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
         className: internal
         hosts:
           - host: sh.oxygn.dev

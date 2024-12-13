@@ -68,8 +68,6 @@ spec:
       mealie:
         enabled: true
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
         hosts:
           - host: "mealie.oxygn.dev"
             paths:

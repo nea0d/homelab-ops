@@ -29,8 +29,6 @@ spec:
     ingress:
       dashboard:
         ingressClassName: internal
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
         host:
           name: "rook.oxygn.dev"
           path: /
@@ -239,7 +237,6 @@ spec:
       #     annotations:
       #       nginx.ingress.kubernetes.io/proxy-body-size: "0"
       #       nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-      #       external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
       #     host:
       #       name: rgw.oxygn.dev
       #       path: /

@@ -102,7 +102,6 @@ spec:
           gethomepage.dev/widget.type: sabnzbd
           gethomepage.dev/widget.url: http://sabnzbd.nzb
           gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SABNZBD_TOKEN}}` }}"
-          external-dns.alpha.kubernetes.io/target: internal.oxygn.dev
         hosts:
           - host: "sabnzbd.oxygn.dev"
             paths:

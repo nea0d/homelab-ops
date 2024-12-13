@@ -91,8 +91,6 @@ spec:
     ingress:
       app:
         className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
         hosts:
           - host: "echo.oxygn.dev"
             paths:

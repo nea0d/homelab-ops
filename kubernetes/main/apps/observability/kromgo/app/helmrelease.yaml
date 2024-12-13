@@ -76,8 +76,6 @@ spec:
             port: *healthPort
     ingress:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: external.oxygn.dev
         className: external
         hosts:
           - host: "kromgo.oxygn.dev"
