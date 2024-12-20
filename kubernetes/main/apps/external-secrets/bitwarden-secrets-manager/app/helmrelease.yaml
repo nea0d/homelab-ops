@@ -34,8 +34,10 @@ spec:
               repository: ghcr.io/ripplefcl/bws-cache
               tag: v2.3.0@sha256:73ad42472d3babebe99473a1c7945f4c25fc99e2df10000309895cbdcd535a7b
             env:
-              SECRET_TTL: 3600
-              DEBUG: "false"
+              REQUEST_RATE: 1
+              REFRESH_RATE: 10
+              LOG_LEVEL: debug
+              PARSE_SECRET_VALUES: true
               ORG_ID:
                 valueFrom:
                   secretKeyRef:
