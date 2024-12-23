@@ -125,13 +125,13 @@ nodes:
   - hostname: "k8s-main-w03"
     ipAddress: "10.10.98.223"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/1351a99a1f8094938fc1af4c4d9c9ff2f46661fd74e737ddcbfcc12a7d12fc2f
+    talosImageURL: factory.talos.dev/installer/914b38adefad3d77212f565745ed52013bf3a424e7da2730e9e7dad8ee297342
     schematic:
       customization:
         systemExtensions:
           officialExtensions:
-            - siderolabs/nonfree-kmod-nvidia
-            - siderolabs/nvidia-container-toolkit
+            - siderolabs/nonfree-kmod-nvidia-lts
+            - siderolabs/nvidia-container-toolkit-lts
             - siderolabs/qemu-guest-agent
     controlPlane: false
     networkInterfaces:
@@ -162,6 +162,7 @@ controlPlane:
   patches:
     - "@./patches/controller/api-access.yaml"
     - "@./patches/controller/cluster.yaml"
+    - "@./patches/controller/discovery.yaml"
     - "@./patches/controller/disable-admission-controller.yaml"
     - "@./patches/controller/etcd.yaml"
 
