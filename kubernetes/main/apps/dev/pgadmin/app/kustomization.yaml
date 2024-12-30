@@ -7,8 +7,8 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   # Templates
-  - ../../../../templates/gatus/guarded
-  - ../../../../templates/volsync/local
+  - ../../../../../shared/templates/gatus/guarded
+  - ../../../../../shared/templates/volsync/local
 configMapGenerator:
   # - name: pgadmin-local-config
   #   files:

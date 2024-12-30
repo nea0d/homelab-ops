@@ -6,5 +6,5 @@ resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
   # Templates
-  - ../../../../templates/gatus/external
-  - ../../../../templates/volsync/full
+  - ../../../../../shared/templates/gatus/external
+  - ../../../../../shared/templates/volsync/full
