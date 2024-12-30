@@ -6,4 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
   # Templates
-  - ../../../../templates/gatus/guarded
+  - ../../../../../shared/templates/gatus/guarded

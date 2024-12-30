@@ -6,4 +6,4 @@ resources:
   - ./helmrelease.yaml
   - ./rbac.yaml
   # Templates
-  - ../../../../templates/gatus/guarded
+  - ../../../../../shared/templates/gatus/guarded
