@@ -8,19 +8,13 @@ talosconfig
 .config.env
 *.agekey
 *.pub
+*.crt
 *.key
 # Private
-.private
-.bin
-# Ansible
-.venv*
+/.private/
 # Taskfile
-.task
+/.task/
 # Brew
 Brewfile.lock.json
-# intellij
-.idea
-# wiki
-wiki
 # Bootstrap
 /kubernetes/*/config.yaml

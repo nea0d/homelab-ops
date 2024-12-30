@@ -1,28 +1,19 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: "3"
+version: '3'
+
+set: [pipefail]
+shopt: [globstar]
 
 vars:
-  # Directories
-  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
-  KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
-  PRIVATE_DIR: "{{.ROOT_DIR}}/.private"
-  SCRIPTS_DIR: "{{.ROOT_DIR}}/scripts"
-  # Files
-  AGE_FILE: "{{.ROOT_DIR}}/age.key"
-  BOOTSTRAP_CONFIG_FILE: "{{.ROOT_DIR}}/config.yaml"
-  KUBECONFIG_FILE: "{{.KUBERNETES_DIR}}/main/kubeconfig"
-  MAKEJINJA_CONFIG_FILE: "{{.ROOT_DIR}}/makejinja.toml"
-  PIP_REQUIREMENTS_FILE: "{{.ROOT_DIR}}/requirements.txt"
-  SOPS_CONFIG_FILE: "{{.ROOT_DIR}}/.sops.yaml"
-  # Binaries
-  PYTHON_BIN: python3
+  CLUSTER: '{{.CLUSTER | default "main"}}'
+  CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
 
 env:
-  KUBECONFIG: "{{.KUBECONFIG_FILE}}"
-  PYTHONDONTWRITEBYTECODE: "1"
-  SOPS_AGE_KEY_FILE: "{{.AGE_FILE}}"
-  VIRTUAL_ENV: "{{.ROOT_DIR}}/.venv"
+  KUBECONFIG: '{{.CLUSTER_DIR}}/kubeconfig'
+  MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
+  SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
+  TALOSCONFIG: '{{.CLUSTER_DIR}}/talosconfig'
 
 includes:
   bootstrap: .taskfiles/Bootstrap
@@ -39,5 +30,11 @@ includes:
 tasks:
 
   default:
+    cmd: task --list
     silent: true
-    cmd: task -l
+
+  # Ref: https://github.com/go-task/task/issues/608
+  noop:
+    internal: true
+    silent: true
+    cmd: noop() { :; }
