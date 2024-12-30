@@ -5,7 +5,6 @@ resources:
   # Pre Flux-Kustomizations
   - ./namespace.yaml
   # Flux-Kustomizations
-  - ./atuin/ks.yaml
-  - ./coder/ks.yaml
-  - ./pgadmin/ks.yaml
+  - ./gha-runner-scale-set/ks.yaml
+  - ./gha-runner-scale-set-controller/ks.yaml
 

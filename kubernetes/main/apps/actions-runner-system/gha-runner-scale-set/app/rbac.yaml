@@ -15,7 +15,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: actions-runner
-    namespace: dev
+    namespace: actions-runner-system
 ---
 apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
