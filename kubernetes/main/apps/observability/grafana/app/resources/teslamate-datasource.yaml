@@ -6,9 +6,9 @@ datasources:
     access: proxy
     url: postgres-r.databases.svc.cluster.local.:5432
     database: "teslamate"
-    user: "$${TESLAMATE_DB_USERNAME}"
+    user: "${TESLAMATE_DB_USERNAME}"
     secureJsonData:
-      password: "$${TESLAMATE_DB_PASSWORD}"
+      password: "${TESLAMATE_DB_PASSWORD}"
     jsonData:
       sslmode: disable
       postgresVersion: 1000
