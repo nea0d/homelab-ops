@@ -8,12 +8,13 @@ shopt: [globstar]
 vars:
   CLUSTER: '{{.CLUSTER | default "main"}}'
   CLUSTER_DIR: '{{.ROOT_DIR}}/kubernetes/{{.CLUSTER}}'
+  KUBERNETES_DIR: '{{.ROOT_DIR}}/kubernetes'
 
 env:
   KUBECONFIG: '{{.CLUSTER_DIR}}/kubeconfig'
   MINIJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/.minijinja.toml'
   SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
-  TALOSCONFIG: '{{.CLUSTER_DIR}}/talosconfig'
+  TALOSCONFIG: '{{.CLUSTER_DIR}}/bootstrap/talos/clusterconfig/talosconfig'
 
 includes:
   bootstrap: .taskfiles/Bootstrap
