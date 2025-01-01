@@ -8,4 +8,4 @@ resources:
   - ./externalsecret.yaml
   # Templates
   - ../../../../../shared/templates/gatus/guarded
-  - ../../../../../shared/templates/volsync
+  - ../../../../../shared/templates/volsync/full
