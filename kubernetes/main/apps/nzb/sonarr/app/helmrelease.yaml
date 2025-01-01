@@ -30,20 +30,11 @@ spec:
       sonarr:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-              pullPolicy: IfNotPresent
-            envFrom: &envFrom
-              - secretRef:
-                  name: sonarr-secret
         containers:
           app:
             image:
               repository: ghcr.io/onedr0p/sonarr-develop
-              tag: 4.0.11.2804@sha256:cb7d3b0cd6f465868df6b88bfa78d52899b9955ced2bf03720eccc3fba402635
+              tag: 4.0.11.2815@sha256:ac6fdfaa7056044d6131f6dbeec93542585ca3b9c76f4ebd3362864c70547e6b
             env:
               SONARR__APP__INSTANCENAME: Sonarr
               SONARR__APP__THEME: dark
@@ -54,7 +45,9 @@ spec:
               SONARR__SERVER__PORT: &port 80
               SONARR__UPDATE__BRANCH: develop
               TZ: "Europe/Paris"
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: sonarr-secret
             probes:
               liveness: &probes
                 enabled: true
@@ -68,8 +61,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-              startup:
-                enabled: false
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -82,12 +73,12 @@ spec:
                 memory: 1Gi
         pod:
           securityContext:
-            runAsUser: 568
-            runAsGroup: 568
             runAsNonRoot: true
-            fsGroup: 568
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
-            supplementalGroups: [10000]
+            seccompProfile: { type: RuntimeDefault }
     service:
       app:
         controller: sonarr
@@ -98,17 +89,8 @@ spec:
       app:
         enabled: true
         className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Downloads
-          gethomepage.dev/name: Sonarr
-          gethomepage.dev/icon: sonarr.png
-          gethomepage.dev/description: TV Downloads
-          gethomepage.dev/widget.type: sonarr
-          gethomepage.dev/widget.url: http://sonarr.nzb
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_SONARR_TOKEN}}` }}"
         hosts:
-          - host: "sonarr.oxygn.dev"
+          - host: "{{ .Release.Name }}.oxygn.dev"
             paths:
               - path: /
                 service:
@@ -116,13 +98,16 @@ spec:
                   port: http
     persistence:
       config:
-        existingClaim: sonarr-config
+        existingClaim: sonarr
+      cache:
+        existingClaim: sonarr-cache
+        globalMounts:
+          - path: /config/MediaCover
       tmp:
         type: emptyDir
       media:
-        enabled: true
         type: nfs
-        server: "10.10.10.20"
+        server: funkstation.internal
         path: /volume2/Media
         globalMounts:
           - path: /media
