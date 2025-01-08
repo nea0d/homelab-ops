@@ -8,26 +8,28 @@ metadata:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  type: ClusterIP
-  clusterIP: None
+  type: ExternalName
+  externalName: pve.internal
+  # type: ClusterIP
+  # clusterIP: None
   ports:
     - name: https-pve
       port: &port 8006
       protocol: TCP
       targetPort: *port
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: pve
-  namespace: network
-subsets:
-  - addresses:
-      - ip: 10.10.0.50
-    ports:
-      - name: https-pve
-        port: 8006
-        protocol: TCP
+# ---
+# apiVersion: v1
+# kind: Endpoints
+# metadata:
+#   name: pve
+#   namespace: network
+# subsets:
+#   - addresses:
+#       - ip: 10.10.0.50
+#     ports:
+#       - name: https-pve
+#         port: 8006
+#         protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
