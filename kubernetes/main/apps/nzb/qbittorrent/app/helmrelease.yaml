@@ -196,17 +196,20 @@ spec:
           qbittorrent:
             app:
               - path: /config
+
       add-ons:
         enabled: true
         type: emptyDir
         globalMounts:
           - path: /add-ons
+
       empty-config:
         type: emptyDir
         advancedMounts:
           qbittorrent:
             port-forward:
               - path: /config
+
       dnsdist:
         type: configMap
         name: qbittorrent-dnsdist
@@ -216,9 +219,10 @@ spec:
               - path: /etc/dnsdist/dnsdist.conf
                 subPath: dnsdist.conf
                 readOnly: true
+
       media:
         type: nfs
-        server: "10.10.10.20"
+        server: funkstation.internal
         path: /volume2/Media
         globalMounts:
           - path: /media

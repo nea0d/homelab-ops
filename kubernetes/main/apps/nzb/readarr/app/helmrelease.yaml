@@ -117,12 +117,13 @@ spec:
     persistence:
       config:
         existingClaim: readarr-config
+
       tmp:
         type: emptyDir
+
       media:
-        enabled: true
         type: nfs
-        server: "10.10.10.20"
+        server: funkstation.internal
         path: /volume2/Media
         globalMounts:
           - path: /media

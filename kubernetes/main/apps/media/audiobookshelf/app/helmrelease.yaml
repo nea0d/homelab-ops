@@ -95,9 +95,8 @@ spec:
         globalMounts:
           - path: /.npm
       media:
-        enabled: true
         type: nfs
-        server: "10.10.10.20"
-        path: "/volume2/Media"
+        server: funkstation.internal
+        path: /volume2/Media
         globalMounts:
           - path: /media

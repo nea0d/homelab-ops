@@ -118,35 +118,38 @@ spec:
         # globalMounts:
         #   - path: /config/Library/Application Support/Plex Media Server
       # Separate PVC for cache to avoid backing up cache files
+
       cache:
         existingClaim: plex-cache
         globalMounts:
           - path: /config/Library/Application Support/Plex Media Server/Cache
+
       tmp:
         type: emptyDir
+
       transcode:
         type: emptyDir
+
       media:
-        enabled: true
         type: nfs
-        server: "10.10.10.20"
-        path: "/volume2/Media"
+        server: funkstation.internal
+        path: /volume2/Media
         globalMounts:
           - path: /media
             readOnly: true
+
       pictures:
-        enabled: true
         type: nfs
-        server: "10.10.10.20"
-        path: "/volume2/Pictures"
+        server: funkstation.internal
+        path: /volume2/Pictures
         globalMounts:
           - path: /pictures
             readOnly: true
+
       videos:
-        enabled: true
         type: nfs
-        server: "10.10.10.20"
-        path: "/volume2/Videos"
+        server: funkstation.internal
+        path: /volume2/Videos
         globalMounts:
           - path: /videos
             readOnly: true

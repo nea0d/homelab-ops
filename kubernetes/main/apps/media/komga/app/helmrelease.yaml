@@ -77,6 +77,7 @@ spec:
     persistence:
       config:
         existingClaim: *app
+
       app:
         type: secret
         name: komga-secret
@@ -84,17 +85,19 @@ spec:
         globalMounts:
           - subPath: application.yml
             path: /config/application.yml
+
       media:
         type: nfs
-        server: "10.10.10.20"
-        path: "/volume2/Media/Comics"
+        server: funkstation.internal
+        path: /volume2/Media/Comics
         globalMounts:
           - path: /media/comics
             readOnly: true
+
       books:
         type: nfs
-        server: "10.10.10.20"
-        path: "/volume2/Media/Books/readarr"
+        server: funkstation.internal
+        path: /volume2/Media/Books/readarr
         globalMounts:
           - path: /media/books
             readOnly: true
