@@ -8,8 +8,10 @@ metadata:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  type: ClusterIP
-  clusterIP: None
+  type: ExternalName
+  externalName: funkstation.internal
+  # type: ClusterIP
+  # clusterIP: None
   ports:
     - name: http-minio-console
       port: &port-console 9001
@@ -19,22 +21,22 @@ spec:
       port: &port-api 9000
       protocol: TCP
       targetPort: *port-api
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: minio
-  namespace: network
-subsets:
-  - addresses:
-      - ip: 10.10.10.20
-    ports:
-      - name: http-minio-console
-        port: 9001
-        protocol: TCP
-      - name: http-minio-api
-        port: 9000
-        protocol: TCP
+# ---
+# apiVersion: v1
+# kind: Endpoints
+# metadata:
+#   name: minio
+#   namespace: network
+# subsets:
+#   - addresses:
+#       - ip: 10.10.10.20
+#     ports:
+#       - name: http-minio-console
+#         port: 9001
+#         protocol: TCP
+#       - name: http-minio-api
+#         port: 9000
+#         protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

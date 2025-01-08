@@ -2,37 +2,39 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: &app nas
+  name: &app funkstation
   namespace: network
   labels:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  type: ClusterIP
-  clusterIP: None
+  type: ExternalName
+  externalName: funkstation.internal
+  # type: ClusterIP
+  # clusterIP: None
   ports:
     - name: http-syno
       port: &port 5000
       protocol: TCP
       targetPort: *port
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: nas
-  namespace: network
-subsets:
-  - addresses:
-      - ip: 10.10.10.20
-    ports:
-      - name: http-syno
-        port: 5000
-        protocol: TCP
+# ---
+# apiVersion: v1
+# kind: Endpoints
+# metadata:
+#   name: nas
+#   namespace: network
+# subsets:
+#   - addresses:
+#       - ip: 10.10.10.20
+#     ports:
+#       - name: http-syno
+#         port: 5000
+#         protocol: TCP
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: &app nas
+  name: &app funkstation
   namespace: network
   labels:
     app.kubernetes.io/name: *app
@@ -40,7 +42,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: "nas.oxygn.dev"
+    - host: "funkstation.oxygn.dev"
       http:
         paths:
           - path: /
