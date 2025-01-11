@@ -79,15 +79,6 @@ spec:
     ingress:
       app:
         className: external
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Video
-          gethomepage.dev/name: Overseerr
-          gethomepage.dev/icon: overseerr.png
-          gethomepage.dev/description: Media Request Management
-          gethomepage.dev/widget.type: overseerr
-          gethomepage.dev/widget.url: http://overseerr.media
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_OVERSEERR_TOKEN}}` }}"
         hosts:
           - host: "overseerr.oxygn.dev"
             paths:

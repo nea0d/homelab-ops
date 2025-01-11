@@ -98,15 +98,6 @@ spec:
       app:
         enabled: true
         className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Downloads
-          gethomepage.dev/name: Readarr
-          gethomepage.dev/icon: readarr.png
-          gethomepage.dev/description: eBook Downloads
-          gethomepage.dev/widget.type: readarr
-          gethomepage.dev/widget.url: http://readarr.nzb
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_READARR_TOKEN}}` }}"
         hosts:
           - host: "readarr.oxygn.dev"
             paths:

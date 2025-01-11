@@ -97,15 +97,6 @@ spec:
       app:
         enabled: true
         className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Downloads
-          gethomepage.dev/name: Radarr
-          gethomepage.dev/icon: radarr.png
-          gethomepage.dev/description: Movie Downloads
-          gethomepage.dev/widget.type: radarr
-          gethomepage.dev/widget.url: http://radarr.nzb
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_RADARR_TOKEN}}` }}"
         hosts:
           - host: "radarr.oxygn.dev"
             paths:

@@ -172,16 +172,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Downloads
-          gethomepage.dev/name: qBittorrent
-          gethomepage.dev/icon: qbittorrent.png
-          gethomepage.dev/description: Torrent Client
-          gethomepage.dev/widget.type: qbittorrent
-          gethomepage.dev/widget.url: http://qbittorrent.nzb
-          # gethomepage.dev/widget.username: "{{ `{{HOMEPAGE_VAR_QBITTORRENT_USERNAME}}` }}"
-          # gethomepage.dev/widget.password: "{{ `{{HOMEPAGE_VAR_QBITTORRENT_PASSWORD}}` }}"
         hosts:
           - host: "qbittorrent.oxygn.dev"
             paths:

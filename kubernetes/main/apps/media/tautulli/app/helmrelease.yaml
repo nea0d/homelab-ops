@@ -84,15 +84,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          gethomepage.dev/enabled: "true"
-          gethomepage.dev/group: Video
-          gethomepage.dev/name: Tautulli
-          gethomepage.dev/icon: tautulli.png
-          gethomepage.dev/description: Plex Stream Monitoring
-          gethomepage.dev/widget.type: tautulli
-          gethomepage.dev/widget.url: http://tautulli.media
-          gethomepage.dev/widget.key: "{{ `{{HOMEPAGE_VAR_TAUTULLI_TOKEN}}` }}"
         hosts:
           - host: "tautulli.oxygn.dev"
             paths:
