@@ -10,7 +10,6 @@ metadata:
 spec:
   targetNamespace: observability
   dependsOn:
-    - name: cloudnative-pg-cluster
     - name: external-secrets-stores
   commonMetadata:
     labels:
