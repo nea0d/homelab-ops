@@ -25,7 +25,7 @@ spec:
     deploymentStrategy:
       type: Recreate
     admin:
-      existingSecret: grafana-secret
+      existingSecret: &secret grafana-secret
     env:
       GF_DATE_FORMATS_FULL_DATE: "DD MM YYYY hh:mm:ss a"
       DS_PROMETHEUS: Prometheus
@@ -34,6 +34,7 @@ spec:
       GF_EXPLORE_ENABLED: true
       GF_SECURITY_COOKIE_SAMESITE: grafana
       GF_SERVER_ROOT_URL: "https://grafana.oxygn.dev"
+    envFromSecret: *secret
     grafana.ini:
       analytics:
         check_for_updates: false
