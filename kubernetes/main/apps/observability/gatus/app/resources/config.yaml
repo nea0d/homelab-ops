@@ -2,18 +2,11 @@
 web:
   port: ${WEB_PORT}
 storage:
-  type: postgres
-  path: postgres://${INIT_POSTGRES_USER}:${INIT_POSTGRES_PASS}@${INIT_POSTGRES_HOST}:5432/${INIT_POSTGRES_DBNAME}?sslmode=disable
+  type: sqlite
+  path: /config/sqlite.db
   caching: true
 metrics: true
-debug: true
-security:
-  oidc:
-    issuer-url: "https://auth.oxygn.dev"
-    redirect-url: "https://status.oxygn.dev/authorization-code/callback"
-    client-id: "${GATUS_OIDC_CLIENT_ID}"
-    client-secret: "${GATUS_OIDC_CLIENT_SECRET}"
-    scopes: ["openid"]
+debug: false
 ui:
   title: Status | Gatus
   header: Status
@@ -30,16 +23,6 @@ connectivity:
     target: 1.1.1.1:53
     interval: 1m
 endpoints:
-  - name: status
-    group: external
-    url: https://status.oxygn.dev
-    interval: 1m
-    client:
-      dns-resolver: tcp://1.1.1.1:53
-    conditions:
-      - "[STATUS] == 200"
-    alerts:
-      - type: discord
   - name: flux-webhook
     group: external
     url: https://flux-webhook.oxygn.dev
