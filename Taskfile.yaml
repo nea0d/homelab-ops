@@ -21,7 +21,6 @@ includes:
   external-secrets: .taskfiles/ExternalSecrets
   flux: .taskfiles/Flux
   kubernetes: .taskfiles/Kubernetes
-  postgres: .taskfiles/Postgres
   rook: .taskfiles/Rook
   sops: .taskfiles/Sops
   talos: .taskfiles/Talos
