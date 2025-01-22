@@ -5,6 +5,5 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
   - ./externalsecret.yaml
-  # - ./resources
   # Templates
   - ../../../../../shared/templates/gatus/guarded
