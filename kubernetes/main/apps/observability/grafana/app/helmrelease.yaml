@@ -162,6 +162,18 @@ spec:
             url: http://alertmanager-operated.observability.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
+          - name: TeslaMate
+            type: postgres
+            access: proxy
+            url: postgres-r.databases.svc.cluster.local:5432
+            database: "teslamate"
+            user: $TESLAMATE_DB_USERNAME
+            secureJsonData:
+              password: $TESLAMATE_DB_PASSWORD
+            jsonData:
+              sslmode: disable
+              timeInterval: 30s
+
     dashboards:
       apps:
         cloudflared:
