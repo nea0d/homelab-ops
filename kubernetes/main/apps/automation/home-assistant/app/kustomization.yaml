@@ -3,9 +3,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ./helmrelease.yaml
   - ./externalsecret.yaml
-  - ./gatus-custom.yaml
+  - ./helmrelease.yaml
+  - ./pvc.yaml
   # Templates
   - ../../../../../shared/templates/gatus/external
   - ../../../../../shared/templates/volsync/full

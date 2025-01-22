@@ -57,28 +57,25 @@ spec:
             image:
               repository: ghcr.io/coder/code-server
               tag: 4.96.4@sha256:f93810f7f6636b3af3b1a750faf612349cddb89fbb6d28d69123a214fc75ee9e
-            args:
-              - --auth
-              - none
-              - --user-data-dir
-              - "/config/.vscode"
-              - --extensions-dir
-              - "/config/.vscode"
-              - --port
-              - "8080"
-              - "/config"
+            args: [
+              "--auth", "none",
+              "--user-data-dir", "/config/.vscode",
+              "--extensions-dir", "/config/.vscode",
+              "--port", "12321",
+              "/config"
+            ]
             env:
               TZ: "Europe/Paris"
     defaultPodOptions:
       securityContext:
         runAsNonRoot: true
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
         seccompProfile: { type: RuntimeDefault }
     service:
-      main:
+      app:
         controller: home-assistant
         type: LoadBalancer
         annotations:
@@ -90,14 +87,14 @@ spec:
           code-server:
             port: 8080
     ingress:
-      external:
+      app:
         className: external
         hosts:
           - host: "hass.oxygn.dev"
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
       code-server:
         className: internal
@@ -106,18 +103,26 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: code-server
     persistence:
       config:
         existingClaim: home-assistant
-      logs:
+        globalMounts:
+          - path: /config
+      config-cache:
+        existingClaim: home-assistant-cache
+        globalMounts:
+          - path: /config/.venv
+      config-logs:
         type: emptyDir
         globalMounts:
           - path: /config/logs
-      tts:
+      config-tts:
         type: emptyDir
         globalMounts:
           - path: /config/tts
       tmp:
         type: emptyDir
+        globalMounts:
+          - path: /tmp
