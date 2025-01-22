@@ -42,11 +42,6 @@ spec:
         reporting_enabled: false
       auth.basic:
         enabled: false
-      auth.anonymous:
-        enabled: true
-        org_id: 1
-        org_name: Oxygn
-        org_role: Viewer
       news:
         news_feed_enabled: false
     dashboardProviders:
