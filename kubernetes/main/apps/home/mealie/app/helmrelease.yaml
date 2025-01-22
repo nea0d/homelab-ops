@@ -17,15 +17,15 @@ spec:
   values:
     controllers:
       mealie:
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
-              pullPolicy: IfNotPresent
-            envFrom: &envFrom
-              - secretRef:
-                  name: mealie-secret
+        # initContainers:
+        #   init-db:
+        #     image:
+        #       repository: ghcr.io/onedr0p/postgres-init
+        #       tag: 16
+        #       pullPolicy: IfNotPresent
+        #     envFrom: &envFrom
+        #       - secretRef:
+        #           name: mealie-secret
         containers:
           app:
             image:
@@ -48,8 +48,10 @@ spec:
               SMTP_FROM_EMAIL: mealie@oxygn.dev
               TOKEN_TIME: 720
               # Database Settings
-              DB_ENGINE: postgres
-            envFrom: *envFrom
+              # DB_ENGINE: postgres
+            # envFrom:
+            #   - secretRef:
+            #       name: mealie-secret
             resources:
               requests:
                 cpu: 10m
