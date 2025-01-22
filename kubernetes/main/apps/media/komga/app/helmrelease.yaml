@@ -56,7 +56,7 @@ spec:
             port: *port
     ingress:
       app:
-        className: external
+        className: internal
         hosts:
           - host: "komga.oxygn.dev"
             paths:
@@ -67,14 +67,6 @@ spec:
     persistence:
       config:
         existingClaim: *app
-
-      app:
-        type: secret
-        name: komga-secret
-        defaultMode: 0400
-        globalMounts:
-          - subPath: application.yml
-            path: /config/application.yml
 
       media:
         type: nfs
