@@ -8,7 +8,7 @@ metadata:
 spec:
   targetNamespace: network
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -34,7 +34,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/network/external-dns/unifi
   prune: false
   sourceRef:

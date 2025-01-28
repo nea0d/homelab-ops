@@ -8,7 +8,7 @@ metadata:
 spec:
   targetNamespace: media
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

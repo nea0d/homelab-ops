@@ -13,7 +13,7 @@ spec:
   dependsOn:
     - name: rook-ceph-cluster
     - name: volsync
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/media/calibre-web/app
   prune: true
   sourceRef:
