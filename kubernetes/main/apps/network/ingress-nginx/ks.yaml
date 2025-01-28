@@ -35,7 +35,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: ingress-nginx-certificates
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/network/ingress-nginx/internal
   prune: false
   sourceRef:
@@ -59,7 +59,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: ingress-nginx-certificates
-    - name: external-secrets-stores
+    - name: onepassword-store
   path: ./kubernetes/main/apps/network/ingress-nginx/external
   prune: false
   sourceRef:

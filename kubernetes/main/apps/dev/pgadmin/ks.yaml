@@ -11,7 +11,7 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: volsync
     - name: rook-ceph-cluster
   path: ./kubernetes/main/apps/dev/pgadmin/app

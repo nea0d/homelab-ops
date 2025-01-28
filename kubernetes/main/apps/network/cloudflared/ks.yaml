@@ -10,7 +10,7 @@ metadata:
 spec:
   targetNamespace: network
   dependsOn:
-    - name: external-secrets-stores
+    - name: onepassword-store
     - name: external-dns-cloudflare
   commonMetadata:
     labels:

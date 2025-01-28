@@ -38,7 +38,7 @@ spec:
   path: ./kubernetes/main/apps/databases/cloudnative-pg/cluster
   dependsOn:
     - name: cloudnative-pg
-    - name: external-secrets-stores
+    - name: onepassword-store
   prune: true
   sourceRef:
     kind: GitRepository
