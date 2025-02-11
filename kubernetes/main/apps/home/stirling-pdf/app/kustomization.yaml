@@ -7,4 +7,4 @@ resources:
   - ./helmrelease.yaml
   # Templates
   - ../../../../../shared/templates/gatus/guarded
-  - ../../../../../shared/templates/volsync/local
+  - ../../../../../shared/templates/volsync/full
